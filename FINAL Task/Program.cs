@@ -1,8 +1,5 @@
-﻿using System.Numerics;
-using System;
-using Core;
+﻿using Core;
 using Entities;
-using Games;
 using Services;
 using Casino;
 
@@ -14,7 +11,7 @@ namespace FINAL_Task
         {
             Console.WriteLine("Welcome to Final Task Casino!");
 
-            // Путь для сохранения профилей
+            // Путь для сохранения профилей. В нём же вручную можно хакнуть деньги.
             string savePath = "PlayerProfiles";
 
             // Сервис сохранения/загрузки
@@ -24,7 +21,7 @@ namespace FINAL_Task
             Player player = LoadOrCreatePlayer(saveLoadService);
 
             // Создание казино с загруженным игроком
-            var casino = new Casino(savePath, player.Name);
+            var casino = new CasinoManager(savePath, player.Name);
 
             // Запуск игры
             casino.StartGame();
@@ -36,11 +33,6 @@ namespace FINAL_Task
             Console.ReadKey();
         }
 
-        /// <summary>
-        /// Загружает существующий профиль или создаёт новый
-        /// </summary>
-        /// <param name="service">Сервис сохранения/загрузки</param>
-        /// <returns>Объект Player</returns>
         private static Player LoadOrCreatePlayer(ISaveLoadService<Player> service)
         {
             Console.Write("Enter your name: ");
